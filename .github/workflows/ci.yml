@@ -1,0 +1,88 @@
+name: CI
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  run-test:
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568
+        with:
+          go-version: 1.23
+          check-latest: true
+
+      - name: Build and Test
+        run: |
+          go mod tidy
+          go build
+          go test -v ./...
+        env:
+          VET_E2E: true
+
+          # Used to avoid rate limiting issue while running
+          # test suites that use GitHub API
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  run-e2e:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@6edd4406fa81c3da01a34fa6f6343087c207a568
+        with:
+          go-version: 1.23
+          check-latest: true
+
+      - name: Build vet
+        run: |
+          go mod tidy
+          go build
+
+      - name: Run E2E Scenarios
+        run: |
+          ./test/scenarios/all.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run E2E Scenarios with Insights V2
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          ./test/scenarios/all.sh
+        env:
+          E2E_INSIGHTS_V2: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # This will not be available when there is a PR from a forked repository
+          VET_API_KEY: ${{ secrets.SAFEDEP_CLOUD_API_KEY }}
+          VET_CONTROL_TOWER_TENANT_ID: ${{ secrets.SAFEDEP_CLOUD_TENANT_DOMAIN }}
+
+  build-container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v3
+
+    - name: Setup QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Setup Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Build Container Image
+      run: |
+        docker buildx build --platform linux/amd64 --platform linux/arm64 \
+        -t build-container-test .
+
