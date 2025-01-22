@@ -7,7 +7,7 @@ require (
 	buf.build/gen/go/safedep/api/protocolbuffers/go v1.36.3-20250120081932-370c5c54f7c9.1
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/CycloneDX/cyclonedx-go v0.9.2
-	github.com/anchore/syft v1.18.1
+	github.com/anchore/syft v1.19.0
 	github.com/cayleygraph/cayley v0.7.7-0.20240706181042-81dcd7d73e45
 	github.com/cayleygraph/quad v1.3.0
 	github.com/cli/oauth v1.2.0
@@ -66,8 +66,8 @@ require (
 	github.com/anchore/go-logger v0.0.0-20241205183533-4fc29b5832e7 // indirect
 	github.com/anchore/go-macholibre v0.0.0-20241219195549-70b0e607b241 // indirect
 	github.com/anchore/go-struct-converter v0.0.0-20240925125616-a0883641c664 // indirect
-	github.com/anchore/packageurl-go v0.1.1-0.20241018175412-5c22e6360c4f // indirect
-	github.com/anchore/stereoscope v0.0.12 // indirect
+	github.com/anchore/packageurl-go v0.1.1-0.20250117185454-edf36a908b10 // indirect
+	github.com/anchore/stereoscope v0.0.13 // indirect
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
@@ -84,7 +84,6 @@ require (
 	github.com/chainguard-dev/git-urls v1.0.2 // indirect
 	github.com/cloudflare/circl v1.5.0 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
-	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/containerd/errdefs v1.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dlclark/regexp2 v1.11.4 // indirect
@@ -151,7 +150,6 @@ require (
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
-	github.com/mholt/archiver/v3 v3.5.1 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
